@@ -36,3 +36,24 @@ Utilizando os pacotes mencionados:
   - [X] Pesquise a diferença entre os boxplots e os violinplots, e plote também esses gráficos [seaborn.py](aula2/3seaborn.py)
 - [X] Construa uma matriz de correlação entre os atributos do conjunto de dados [seaborn.py](aula2/3seaborn.py)
 - [ ] Fazer análises do conjunto de dados para tentar entender qual a dificuldade de construir classificadores considerando a distribuição dos dados nas classes
+
+## Aula 3
+
+Dia 07/05/2020
+
+- [Nearest Neighbors](http://scikit-learn.org/stable/modules/neighbors.html)
+- [ ] Importar o dataset iris
+- [ ] Utilizar o algoritmo [KNeighborsClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier)
+- [X] Testar scripts:
+  - [X] [teste_KNN.py](aula3/1teste_KNN.py)
+  - [X] [teste_KNN_2.py](aula3/2teste_KNN_2.py)
+
+Avaliar o desempenho do kNN para 5 conjuntos de dados da UCI:
+
+- [ ] 3 de classificação
+- [ ] 2 de regressão
+
+Criar uma base de dados de paridade (vetores de entrada com 10 atributos)
+- [ ] Selecionar aleatoriamente 200 exemplos
+  - [ ] 100 teste e 100 treinamento
+- [ ] Testar algoritmo kNN, variando valor de K
