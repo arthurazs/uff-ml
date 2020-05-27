@@ -10,6 +10,8 @@ Dia 16/04/2020
 
   - [X] [Decision Trees](https://scikit-learn.org/stable/modules/tree.html) feito em [tree_example.py](aula1/1tree_example.py)
 
+- [Material extra sobre *Data Science* em Python](https://jakevdp.github.io/PythonDataScienceHandbook/)
+
 ## Aula 2
 
 Dia 30/04/2020
@@ -41,7 +43,8 @@ Utilizando os pacotes mencionados:
 
 Dia 07/05/2020
 
-- [Nearest Neighbors](http://scikit-learn.org/stable/modules/neighbors.html)
+[Nearest Neighbors](http://scikit-learn.org/stable/modules/neighbors.html)
+
 - [ ] Importar o dataset iris
 - [ ] Utilizar o algoritmo [KNeighborsClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier)
 - [X] Testar scripts:
