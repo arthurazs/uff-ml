@@ -60,3 +60,24 @@ Criar uma base de dados de paridade (vetores de entrada com 10 atributos)
 - [ ] Selecionar aleatoriamente 200 exemplos
   - [ ] 100 teste e 100 treinamento
 - [ ] Testar algoritmo kNN, variando valor de K
+
+## Aula 4
+
+Dia 14/05/2020
+
+- [ ] Obter o conjunto de dados [*Student Performance*](https://archive.ics.uci.edu/ml/datasets/Student+Performance)
+  - [ ] Construir uma árvore de decisão (Usando Python)
+  - [ ] Construir um conjunto de regras (Usando PART no Weka)
+  - [ ] Avalie o conhecimento construído em cada caso
+  - [ ] Avalie os resultados obtidos
+
+## Aula 5
+
+Dia 21/05/2020
+
+- [ ] Obter dois conjunto de dados da [UCI](https://archive.ics.uci.edu/ml/datasets.php) para classificação
+  - [ ] Investigar desempenho do Naive Bayes
+  - [ ] Investigar desempenho de redes Bayesianas
+- [ ] Use o conjunto de dados *Student Performance* (aula anterior)
+  - [ ] Investigar desempenho do Naive Bayes
+  - [ ] Investigar desempenho de redes Bayesianas
