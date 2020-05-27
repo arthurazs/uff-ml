@@ -8,6 +8,7 @@ Created on Fri Apr 27 13:19:06 2018
 
 import numpy as np
 from sklearn import neighbors, datasets, metrics
+from sklearn.neighbors import KNeighborsClassifier
 
 n_neighbors = 15
 
@@ -19,7 +20,7 @@ iris = datasets.load_iris()
 iris_X = iris.data
 iris_y = iris.target
 
-#print(X)
+# print(X)
 
 clf = neighbors.KNeighborsClassifier(n_neighbors, weights='uniform')
 clf.fit(iris_X, iris_y)
@@ -31,11 +32,10 @@ print(metrics.classification_report(iris_y, iris_z))
 indices = np.random.permutation(len(iris_X))
 iris_X_train = iris_X[indices[:-10]]
 iris_y_train = iris_y[indices[:-10]]
-iris_X_test  = iris_X[indices[-10:]]
-iris_y_test  = iris_y[indices[-10:]]
+iris_X_test = iris_X[indices[-10:]]
+iris_y_test = iris_y[indices[-10:]]
 
 # Create and fit a nearest-neighbor classifier
-from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier()
 knn.fit(iris_X_train, iris_y_train)
 iris_z_test = knn.predict(iris_X_test)
