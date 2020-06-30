@@ -18,7 +18,7 @@ Dia 30/04/2020
 
 ```bash
 $ pip install numpy scipy pandas seaborn matplotlib sklearn
-$ apt install python3-tk
+$ apt install -y python3-tk
 ```
 
 Familiarizar-se com os pacotes Python:
