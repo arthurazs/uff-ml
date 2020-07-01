@@ -1,2 +1,7 @@
 # original dataset
 pratica/hue
+
+# processed dataset
+*.csv
+*.jpg
+*.png
