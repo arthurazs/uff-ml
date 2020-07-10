@@ -1,18 +1,32 @@
+# data science tools
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+# generic models
+from sklearn.dummy import DummyRegressor
 from sklearn.neighbors import KNeighborsRegressor
+
+# tree models
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.tree import ExtraTreeRegressor
 from sklearn.ensemble import ExtraTreesRegressor
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.dummy import DummyRegressor
+
+# linear models
 from sklearn.svm import NuSVR
 from sklearn.neural_network import MLPRegressor
 from sklearn.kernel_ridge import KernelRidge
+from sklearn.linear_model import RidgeCV, RANSACRegressor
+from sklearn.linear_model import LinearRegression, Ridge
+from sklearn.linear_model import LarsCV, BayesianRidge
+from sklearn.linear_model import PassiveAggressiveRegressor
+
+# metrics
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.metrics import explained_variance_score, max_error
 from sklearn.metrics import median_absolute_error, r2_score
 from sklearn.metrics import mean_poisson_deviance, mean_gamma_deviance
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
 
 
 def mean_absolute_percentage_error(y_true, y_pred):
@@ -136,15 +150,31 @@ test = (X_test, y_test)
 
 
 # TODO
+# Data analysis
+# Models metrics
+# Compare models https://scikit-learn.org/stable/modules/cross_validation.html
 # SVR is not scale invariant, so it is highly recommended to scale the data
 
 train_test_and_plot([
-    # (KNeighborsRegressor, {'n_neighbors': 7}),
-    # (DecisionTreeRegressor, {}),  # a de baixo eh melhor
+    # generic
+    (DummyRegressor, {'strategy': 'median'}),
+    (KNeighborsRegressor, {'n_neighbors': 7}),
+
+    # tree
+    (ExtraTreeRegressor, {}),
+    (DecisionTreeRegressor, {}),  # a de baixo eh melhor
     (ExtraTreesRegressor, {}),
-    # (RandomForestRegressor, {}),  # a de cima eh melhor
-    # (NuSVR, {'kernel': 'linear'}),
-    # (MLPRegressor, {'random_state': 1}),
-    # (KernelRidge, {'alpha': .5}),
-    # (DummyRegressor, {'strategy': 'median'}),
+    (RandomForestRegressor, {}),  # a de cima eh melhor
+
+    # linear
+    (NuSVR, {'kernel': 'linear'}),
+    (MLPRegressor, {'random_state': 1}),
+    (KernelRidge, {}),
+    (RidgeCV, {}),
+    (RANSACRegressor, {}),
+    (LinearRegression, {}),  # parece igual o de baixo
+    (Ridge, {}),  # parece igual o de cima
+    (LarsCV, {}),
+    (BayesianRidge, {}),
+    (PassiveAggressiveRegressor, {}),
 ], train, test, 500, head=False, together=False)
