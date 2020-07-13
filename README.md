@@ -17,7 +17,7 @@ Dia 16/04/2020
 Dia 30/04/2020
 
 ```bash
-$ pip install numpy scipy pandas seaborn matplotlib sklearn
+$ pip install seaborn sklearn
 $ apt install -y python3-tk
 ```
 
