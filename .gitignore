@@ -1,5 +1,6 @@
 # original dataset
-pratica/hue
+pratica/dataset/
+pratica/predictions/
 
 # processed dataset
 *.csv

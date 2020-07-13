@@ -1,4 +1,10 @@
 import pandas as pd
+import os
+
+PATH = 'dataset'
+FINAL = os.path.join(PATH, 'final.csv')
+NUMERAL = os.path.join(PATH, 'final_numeral.csv')
+HELPER = os.path.join(PATH, 'object2numeral.txt')
 
 DAYS = {
     'Sunday': 1,
@@ -48,15 +54,22 @@ HOLIDAYS = {
     'Labour Day': 12,
 }
 
-dataset = pd.read_csv('dataset.csv', index_col=0, parse_dates=[0])
+print('loading dataset...')
+dataset = pd.read_csv(FINAL, index_col=0, parse_dates=[0])
+print('loaded\n')
 
+print('converting columns...')
 dataset.day_of_week = dataset.day_of_week.apply(lambda day: DAYS[day])
 dataset.holiday = dataset.holiday.apply(lambda holiday: HOLIDAYS[holiday])
 dataset.weather = dataset.weather.apply(lambda weather: WEATHERS[weather])
 dataset.dst = dataset.dst.apply(int)
+print('converted\n')
 
-dataset.to_csv('dataset_numeral.csv')
+print('saving to file...')
+dataset.to_csv(NUMERAL)
 
-print(f'Day labels\n{DAYS}\n')
-print(f'Holiday labels\n{HOLIDAYS}\n')
-print(f'Weather labels\n{WEATHERS}')
+with open(HELPER, 'w') as helper_file:
+    helper_file.write(f'Day labels\n{DAYS}\n\n')
+    helper_file.write(f'Holiday labels\n{HOLIDAYS}\n\n')
+    helper_file.write(f'Weather labels\n{WEATHERS}')
+print('saved')

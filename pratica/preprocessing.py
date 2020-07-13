@@ -1,6 +1,13 @@
 import pandas as pd
 from numpy import nan, isnan, mean
 from datetime import timedelta
+import os
+
+PATH = 'dataset'
+FINAL = os.path.join(PATH, 'final.csv')
+HUE = os.path.join(PATH, 'hue')
+WEATHER = os.path.join(HUE, 'Weather_YVR.csv')
+HOLIDAYS = os.path.join(HUE, 'Holidays.csv')
 
 START_DATE = '2015-09-29 00:00:00'
 END_DATE = '2018-01-29 23:00:00'
@@ -71,7 +78,8 @@ def fix_kWh(column, column_name=None, should_print=True):
 
 def load_dataset(number):
     print(f'House {number:2}', end=': ')
-    dataframe = pd.read_csv(f'hue/Residential_{number}.csv', parse_dates=[0])
+    dataset_path = os.path.join(HUE, f'Residential_{number}.csv')
+    dataframe = pd.read_csv(dataset_path, parse_dates=[0])
     print(dataframe.shape, end=' -> ')
     dataframe.rename(columns={'energy_kWh': f'kWh_{number}'}, inplace=True)
     dataframe.hour = dataframe.hour.apply(lambda hour: timedelta(hours=hour))
@@ -117,7 +125,7 @@ def missing_values_table(df):
 
 
 print('loading weather...')
-weather = pd.read_csv('hue/Weather_YVR.csv', parse_dates=[0])
+weather = pd.read_csv(WEATHER, parse_dates=[0])
 print(weather.shape, end=' -> ')
 weather.hour = weather.hour.apply(lambda hour: timedelta(hours=hour))
 weather['datetime'] = weather.date + weather.hour
@@ -131,7 +139,7 @@ print('loaded\n')
 
 print('loading holidays...')
 # dst -> Daylight Savings Time
-holidays = pd.read_csv('hue/Holidays.csv', parse_dates=[0])
+holidays = pd.read_csv(HOLIDAYS, parse_dates=[0])
 print(holidays.shape, end=' -> ')
 holidays.set_index('date', inplace=True, verify_integrity=True)
 mask = (holidays.index >= START_DATE) & (holidays.index <= END_DATE_P1D)
@@ -213,5 +221,5 @@ print('created\n')
 final.info()
 
 print('\nsaving to file...')
-final.to_csv('dataset.csv')
+final.to_csv(FINAL)
 print('saved')
