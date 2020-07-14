@@ -19,9 +19,10 @@ def plot(predictions, y_test, points, head, separate):
 
     y_test_points = get_points(y_test, points, head)
 
-    fig, ax = plt.subplots(len(predictions) if separate else 1)
-    if not separate:
-        # ax.xaxis.set_major_locator(md.HourLocator(interval=1))
+    if separate:
+        fig, ax = plt.subplots(len(predictions))
+    else:
+        fig, ax = plt.subplots(1)
         ax.xaxis.set_major_formatter(md.DateFormatter('%H:%M:%S'))
         fig.autofmt_xdate()
 
@@ -52,15 +53,9 @@ def plot(predictions, y_test, points, head, separate):
 real = pd.read_csv(REAL, index_col=0, parse_dates=[0])
 
 # NOTE
-# EVS   %   higher is better    0 to 1
-# r2    %   higher is better    0 to 1
-# MAPE  %   lower is better     0 to 1
-# MSE       lower is better
-# MPD       lower is better
-# MGD       lower is better
-# MaxErr    lower is better
-# MAE       lower is better
-# MedAE     lower is better
+# EVS, r2                           %   higher is better    0 to 1
+# MAPE                              %   lower is better     0 to 1
+# MSE, MPD, MGD, ME, MAE, MedAE         lower is better
 metrics = pd.read_csv(METRICS, index_col=0)
 metrics.drop('real', inplace=True)
 
@@ -97,4 +92,4 @@ for name in metrics.index:
     prediction = pd.read_csv(model_path, index_col=0, parse_dates=[0])
     predictions.append((name, prediction))
 
-plot(predictions, real, points=20, head=True, separate=False)
+plot(predictions, real, points=22, head=False, separate=False)
