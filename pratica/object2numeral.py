@@ -1,10 +1,10 @@
 import pandas as pd
-import os
+from os.path import join as join_path
 
 PATH = 'dataset'
-FINAL = os.path.join(PATH, 'final.csv')
-NUMERAL = os.path.join(PATH, 'final_numeral.csv')
-HELPER = os.path.join(PATH, 'object2numeral.txt')
+FINAL = join_path(PATH, 'final.csv')
+NUMERAL = join_path(PATH, 'final_numeral.csv')
+HELPER = join_path(PATH, 'object2numeral.txt')
 
 DAYS = {
     'Sunday': 1,
@@ -72,4 +72,4 @@ with open(HELPER, 'w') as helper_file:
     helper_file.write(f'Day labels\n{DAYS}\n\n')
     helper_file.write(f'Holiday labels\n{HOLIDAYS}\n\n')
     helper_file.write(f'Weather labels\n{WEATHERS}')
-print('saved')
+print('done')

@@ -10,10 +10,6 @@ NUMERAL = join_path(PATH, 'final_numeral.csv')
 
 dataset = pd.read_csv(NUMERAL, index_col=0, parse_dates=[0])
 
-dataset.drop(columns=['dst'], inplace=True)
-kWh = dataset.pop('kWh')
-dataset['kWh'] = kWh
-
 corr = dataset.corr()
 mask = np.triu(np.ones_like(corr, dtype=np.bool))
 f, ax = plt.subplots()

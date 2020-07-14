@@ -1,7 +1,7 @@
 # data science tools
 import pandas as pd
 import numpy as np
-import os
+from os.path import join as join_path
 
 # generic models
 from sklearn.dummy import DummyRegressor
@@ -29,11 +29,11 @@ from sklearn.metrics import median_absolute_error, r2_score
 from sklearn.metrics import mean_poisson_deviance, mean_gamma_deviance
 
 PATH = 'predictions'
-MODELS = os.path.join(PATH, 'models')
-Y_TEST = os.path.join(MODELS, 'real.csv')
-METRICS = os.path.join(PATH, 'metrics.csv')
-RANGE = os.path.join(PATH, 'range.txt')
-DATASET = os.path.join('dataset', 'final_numeral.csv')
+MODELS = join_path(PATH, 'models')
+Y_TEST = join_path(MODELS, 'real.csv')
+METRICS = join_path(PATH, 'metrics.csv')
+RANGE = join_path(PATH, 'range.txt')
+DATASET = join_path('dataset', 'final_numeral.csv')
 
 
 def mean_absolute_percentage_error(y_true, y_pred):
@@ -75,7 +75,7 @@ def train_and_test_one(Model, train, test, *args, **kwargs):
 
     prediction = pd.DataFrame(y_predict, columns=['prediction'])
     prediction.index = X_test.index
-    predict_path = os.path.join(MODELS, f'{name}.csv')
+    predict_path = join_path(MODELS, f'{name}.csv')
     prediction.to_csv(predict_path)
     return y_predict
 

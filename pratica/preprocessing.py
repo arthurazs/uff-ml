@@ -1,13 +1,13 @@
 import pandas as pd
 from numpy import nan, isnan, mean
 from datetime import timedelta
-import os
+from os.path import join as join_path
 
 PATH = 'dataset'
-FINAL = os.path.join(PATH, 'final.csv')
-HUE = os.path.join(PATH, 'hue')
-WEATHER = os.path.join(HUE, 'Weather_YVR.csv')
-HOLIDAYS = os.path.join(HUE, 'Holidays.csv')
+FINAL = join_path(PATH, 'final.csv')
+HUE = join_path(PATH, 'hue')
+WEATHER = join_path(HUE, 'Weather_YVR.csv')
+HOLIDAYS = join_path(HUE, 'Holidays.csv')
 
 START_DATE = '2015-09-29 00:00:00'
 END_DATE = '2018-01-29 23:00:00'
@@ -78,7 +78,7 @@ def fix_kWh(column, column_name=None, should_print=True):
 
 def load_dataset(number):
     print(f'House {number:2}', end=': ')
-    dataset_path = os.path.join(HUE, f'Residential_{number}.csv')
+    dataset_path = join_path(HUE, f'Residential_{number}.csv')
     dataframe = pd.read_csv(dataset_path, parse_dates=[0])
     print(dataframe.shape, end=' -> ')
     dataframe.rename(columns={'energy_kWh': f'kWh_{number}'}, inplace=True)
@@ -218,8 +218,13 @@ final['hour'] = final.index.hour
 print(final)
 print('created\n')
 
+print('reordering dataset...')
+kWh = final.pop('kWh')
+final['kWh'] = kWh
+print('reordered\n')
+
 final.info()
 
 print('\nsaving to file...')
 final.to_csv(FINAL)
-print('saved')
+print('done')

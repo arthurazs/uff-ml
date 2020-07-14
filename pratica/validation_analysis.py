@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
 import matplotlib.dates as md
 import pandas as pd
-import os
+from os.path import join as join_path
 
 PATH = 'predictions'
-METRICS = os.path.join(PATH, 'metrics.csv')
-MODELS = os.path.join(PATH, 'models')
-REAL = os.path.join(MODELS, 'real.csv')
+METRICS = join_path(PATH, 'metrics.csv')
+MODELS = join_path(PATH, 'models')
+REAL = join_path(MODELS, 'real.csv')
 
 
 def get_points(dataset, points, head):
@@ -88,7 +88,7 @@ predictions = []
 for name in metrics.index:
     if name in dont_plot:
         continue
-    model_path = os.path.join(MODELS, f'{name}.csv')
+    model_path = join_path(MODELS, f'{name}.csv')
     prediction = pd.read_csv(model_path, index_col=0, parse_dates=[0])
     predictions.append((name, prediction))
 
