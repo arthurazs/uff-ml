@@ -3,6 +3,26 @@ from datetime import timedelta
 import seaborn as sns
 from matplotlib import pyplot as plt
 import numpy as np
+from os.path import join as join_path
+
+PATH = 'dataset'
+NUMERAL = join_path(PATH, 'final_numeral.csv')
+
+dataset = pd.read_csv(NUMERAL, index_col=0, parse_dates=[0])
+
+dataset.drop(columns=['dst'], inplace=True)
+kWh = dataset.pop('kWh')
+dataset['kWh'] = kWh
+
+corr = dataset.corr()
+mask = np.triu(np.ones_like(corr, dtype=np.bool))
+f, ax = plt.subplots()
+sns.heatmap(corr, cmap='coolwarm', center=0, mask=mask, annot=True, fmt='.2f',
+            square=False, linewidths=1, cbar_kws={"shrink": .75})
+ax.tick_params(axis='x', rotation=45)
+plt.show()
+
+exit()
 
 data = pd.read_csv('hue/Residential_1.csv')
 
