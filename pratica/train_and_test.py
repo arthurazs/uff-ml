@@ -107,6 +107,9 @@ def train_and_test_many(args, train, test):
 
 dataset = pd.read_csv(DATASET, index_col=0, parse_dates=[0])
 
+# TODO
+# https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html
+# https://scikit-learn.org/stable/modules/preprocessing.html
 dataset_test = dataset.tail(len(dataset) // 3)
 dataset_train = dataset.drop(dataset_test.index)
 
