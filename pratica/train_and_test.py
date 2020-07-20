@@ -127,20 +127,20 @@ train_and_test_many([
     (KNeighborsRegressor, {'n_neighbors': 7}),
 
     # tree
-    (ExtraTreeRegressor, {}),
-    (DecisionTreeRegressor, {}),  # a de baixo eh melhor
+    # (ExtraTreeRegressor, {}),
+    # (DecisionTreeRegressor, {}),  # a de baixo eh melhor
     (ExtraTreesRegressor, {}),
-    (RandomForestRegressor, {}),  # a de cima eh melhor
+    # (RandomForestRegressor, {}),  # a de cima eh melhor
 
     # linear
-    (NuSVR, {'kernel': 'linear'}),
+    # (NuSVR, {'kernel': 'linear'}),
     (MLPRegressor, {'random_state': 1}),
-    (KernelRidge, {}),
-    (RidgeCV, {}),
-    (RANSACRegressor, {}),
-    (LinearRegression, {}),  # parece igual o de baixo
-    (Ridge, {}),  # parece igual o de cima
-    (LarsCV, {}),
-    (BayesianRidge, {}),
-    (PassiveAggressiveRegressor, {}),
+    # (KernelRidge, {}),
+    # (RidgeCV, {}),
+    # (RANSACRegressor, {}),
+    # (LinearRegression, {}),  # parece igual o de baixo
+    # (Ridge, {}),  # parece igual o de cima
+    # (LarsCV, {}),
+    # (BayesianRidge, {}),
+    # (PassiveAggressiveRegressor, {}),
 ], train, test)

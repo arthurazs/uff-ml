@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as md
 import pandas as pd
 from os.path import join as join_path
+import seaborn as sns
 
 PATH = 'predictions'
 METRICS = join_path(PATH, 'metrics.csv')
@@ -16,32 +17,40 @@ def get_points(dataset, points, head):
 
 
 def plot(predictions, y_test, points, head, separate):
-
     y_test_points = get_points(y_test, points, head)
 
+    sns.set()
+    # sns.set_palette('coolwarm')
+
     if separate:
-        fig, ax = plt.subplots(len(predictions))
+        fig, ax = plt.subplots(len(predictions), figsize=(9, 5))
     else:
-        fig, ax = plt.subplots(1)
-        ax.xaxis.set_major_formatter(md.DateFormatter('%H:%M:%S'))
-        fig.autofmt_xdate()
+        fig, ax = plt.subplots(1, figsize=(9, 5))
+        ax.xaxis.set_major_formatter(md.DateFormatter('%d/%m/%Y\n%H:%M'))
+        # fig.autofmt_xdate()
+
+    fig.subplots_adjust(left=.08, bottom=.18, right=1, top=1)
 
     if separate:
         position = 0
         for name, prediction in predictions:
             prediction_points = get_points(prediction, points, head)
-            ax[position].plot(y_test_points, label='Measured')
+            ax[position].plot(y_test_points, label='Real')
             ax[position].plot(prediction_points, label=name)
             ax[position].legend()
             position += 1
     else:
-        ax.plot(y_test_points, label='Measured')
+        ax.plot(y_test_points, label='Real')
         for name, prediction in predictions:
             prediction_points = get_points(prediction, points, head)
             ax.plot(prediction_points, label=name)
         ax.legend()
 
+    ax.set_ylabel('kWh')
+    ax.set_xlabel('Data')
+    ax.legend(loc=2)
     plt.show()
+    # fig.savefig('tres_dias_finais_menor.pdf', dpi=600, format='pdf')
 
 
 # TODO
@@ -72,7 +81,7 @@ dont_plot = [
 
     # linear good
     'NuSVR=linear',
-    'MLPRegressor=1',
+    # 'MLPRegressor=1',
     'RANSACRegressor',
     'PassiveAggressiveRegressor',
 
@@ -92,4 +101,4 @@ for name in metrics.index:
     prediction = pd.read_csv(model_path, index_col=0, parse_dates=[0])
     predictions.append((name, prediction))
 
-plot(predictions, real, points=22, head=False, separate=False)
+plot(predictions, real, points=24 * 3, head=False, separate=False)

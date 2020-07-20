@@ -4,6 +4,7 @@ from datetime import timedelta
 from os.path import join as join_path
 
 PATH = 'dataset'
+COUNT = join_path(PATH, 'count.csv')
 FINAL = join_path(PATH, 'final.csv')
 HUE = join_path(PATH, 'hue')
 WEATHER = join_path(HUE, 'Weather_YVR.csv')
@@ -33,6 +34,7 @@ HOUSES = (
             # almost no missing data between 2015~2018
             # 8, 11, 12, 18,
 )
+HOUSES = sorted(HOUSES)
 
 
 def fix_dst(row):
@@ -164,16 +166,17 @@ print('(0, 0)', end=' -> ')
 merged_houses = merge_all(houses)
 print('merged\n')
 
-# table, rows = missing_values_table(merged_houses)
-# print(table)
-# print(f'{rows / 1000000:.2}M rows ({rows})')
-
-# print('processing...')
-# only_nan = merged_houses[merged_houses.isna().any(axis='columns')]
-# print('processed\n')
-
-# print(only_nan.count())
-# print(only_nan)
+print('saving reading count...')
+reading_count = merged_houses.groupby(
+    [lambda x: x.year, lambda x: x.month, lambda x: x.day]).count().reset_index()
+reading_count['date'] = pd.to_datetime(
+    reading_count.level_0.astype(str) + reading_count.level_1.astype(str) + reading_count.level_2.astype(str),
+    format='%Y%m%d')
+# reading_count.date = reading_count.date.dt.strftime('%Y-%m')
+reading_count.drop(columns=['level_0', 'level_1'], inplace=True)
+reading_count.set_index('date', inplace=True)
+reading_count.to_csv(COUNT)
+print('saved\n')
 
 print('filling NaN...')
 before = merged_houses.shape
@@ -222,6 +225,10 @@ print('reordering dataset...')
 kWh = final.pop('kWh')
 final['kWh'] = kWh
 print('reordered\n')
+
+# final.drop(
+#     columns=['day_of_week', 'humidity', 'pressure', 'month', 'day', 'dst'],
+#     inplace=True)
 
 final.info()
 
